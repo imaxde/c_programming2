@@ -1,0 +1,19 @@
+name: Build and lint
+on:
+  - push
+  - pull_requests
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v5
+      - name: Check format
+        run: |
+          # -DCMAKE_EXPORT_COMPILE_COMMANDS=ON is important for clang-tidy
+          cmake . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+      - name: Build
+        run: |
+          cmake --build build
+      - name: Lint
+        run: |
+          run-clang-tidy-18 -p=build
