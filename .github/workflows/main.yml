@@ -1,7 +1,7 @@
 name: Build and lint
 on:
   - push
-  - pull_requests
+  - pull_request
 jobs:
   build-and-lint:
     runs-on: ubuntu-latest
